@@ -57,7 +57,9 @@ The Roland VR-3EX video mixer's HDMI input 2 accepts **480p/576p**, while its HD
    adb -s 192.168.2.107:38501 shell am start -n com.tukios.silk/.MainActivity
    ```
    Returned `Starting: Intent { cmp=com.tukios.silk/.MainActivity }`.
-9. A cloud-built **Tribute Auto Launch** prototype APK was downloaded, extracted, and the user reported the **installation/initial procedure worked**. **Cold-boot and wake trigger success have NOT been independently confirmed in the conversation**. Treat these as untested.
+9. A cloud-built **Tribute Auto Launch** prototype APK was downloaded, extracted, and installed successfully, according to the user.
+10. **2026-11-10 user field test: PASS** — Tribute Videos opened automatically after a **hard reboot**.
+11. **2026-11-10 user field test: PASS** — Tribute Videos opened automatically after pressing the **Google TV power button to wake from standby**. These are user-confirmed device outcomes; no logcat or repeated-cycle evidence has yet been collected.
 
 ### Why third-party launch utilities struggled
 
@@ -173,9 +175,10 @@ Record outcomes and logs on the **actual** onn. Android TV 14 device:
 | --- | --- | --- |
 | APK installs via ADB | Install succeeds | User reported success; capture exact output when possible |
 | Manual app button | Opens Tribute Videos | Not separately confirmed for companion APK |
-| Cold power loss/recovery | Automatically opens Tribute Videos | **Not tested/confirmed** |
+| Hard reboot | Automatically opens Tribute Videos | **PASS — user confirmed 2026-11-10** | 
+| Physical power unplug/replug | Automatically opens Tribute Videos | **Not separately tested/confirmed** |
 | Settings → Restart | Automatically opens Tribute Videos | **Not tested/confirmed** |
-| Remote standby then wake | Automatically opens Tribute Videos | **Not tested/confirmed** |
+| Power-button wake from standby | Automatically opens Tribute Videos | **PASS — user confirmed 2026-11-10** |
 | Press Home / Back | Exit remains possible; no immediate relaunch | **Not tested/confirmed** |
 | Stay in another app without sleeping | No forced relaunch | **Not tested/confirmed** |
 | Wake while another app was last visible | Tribute Videos comes forward | **Not tested/confirmed** |
@@ -199,7 +202,7 @@ Watch for activity-start denial, security exceptions, app crashes, and accessibi
 ## Developer next steps
 
 1. Reproduce the successful `LEANBACK_LAUNCHER` launch and confirm the target app's manifest.
-2. Test whether the compiled prototype launches the app on cold boot and wake on Android TV 14; collect `logcat` failures if not.
+2. Preserve the user-confirmed **hard-reboot** and **power-button wake** PASS results. Repeat tests across multiple cycles, including unplug/replug power, and capture logs if any failures appear.
 3. Design and implement a supported application-side auto-launch strategy; explicitly preserve Home/Back freedom.
 4. Add logging, configuration, and repeatable automated/manual acceptance checks.
 5. Validate TV power-cycling and HDMI resolution independently. A software launcher is not a resolution converter.
