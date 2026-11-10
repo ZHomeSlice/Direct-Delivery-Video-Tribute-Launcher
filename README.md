@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Dedicated onn. 4K Google TV (Android TV 14) automatically opens the custom **Tribute Videos / Direct Delivery** app (`com.tukios.silk/.MainActivity`) following a cold boot or standby wake. Users must remain free to use Home/Back and other apps. **This repository contains a prototype; Android 14 boot/wake behavior is not yet verified on the device.**
+Dedicated onn. 4K Google TV (Android TV 14) automatically opens the custom **Tribute Videos / Direct Delivery** app (`com.tukios.silk/.MainActivity`) following a cold boot or standby wake. Users must remain free to use Home/Back and other apps. **This repository contains a prototype. The user confirmed successful hard-reboot and power-button standby wake behavior on the actual Android TV 14 device on 2026-11-10.** Repeated-cycle, unplug/replug, and manual Home/Back behavior still require testing.
 
 ## Confirmed investigation
 
@@ -13,7 +13,9 @@ Dedicated onn. 4K Google TV (Android TV 14) automatically opens the custom **Tri
 - Explicit `am start -n com.tukios.silk/.MainActivity`: **succeeded**; user confirmed the target app opened.
 - Cloud compilation: **succeeded**, [build run](https://github.com/ZHomeSlice/Direct-Delivery-Video-Tribute-Launcher/actions/runs/42892886407).
 - APK installation: user reported **worked**.
-- Automatic cold boot/wake and normal Home/Back exit: **not yet independently confirmed**.
+- Hard reboot: **PASS, user-confirmed on 2026-11-10**.
+- Power-button standby wake: **PASS, user-confirmed on 2026-11-10**.
+- Unplug/replug power, repeated cycles, and intentional Home/Back exits: **not separately confirmed**.
 
 ## Build and install
 
@@ -28,4 +30,4 @@ Do **not** ship the debug-signed APK as a production release. A permanent fix sh
 
 ## Open issue
 
-Android 14 restricts background activity launching. A boot receiver or screen-on event alone does not guarantee the Tribute Videos app will be brought to the foreground. See the handoff for the observed behavior, risks, and required test matrix.
+Android 14 restricts background activity launching. This prototype **did work in the user's hard-reboot and power-button wake tests**, but that does not guarantee behavior on other firmware, devices, or every future restart. See the handoff for the observed behavior, risks, and required test matrix.
